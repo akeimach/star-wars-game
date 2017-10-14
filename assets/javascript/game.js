@@ -37,6 +37,8 @@ $(document).ready(function(){
         enemyKey = "";
         chooseHero = true;
         chooseEnemy = true;
+        $("#arena").empty();
+        $("#fight-commentary-1, #fight-commentary-2").empty();
         $("#instruction").html("Choose your character");
     }
 
@@ -47,6 +49,18 @@ $(document).ready(function(){
         }
     }
 
+    $("#reset").on("click", function() {
+
+        for (var key in allCharacters) {
+            $(key, + "#bull-pen").show();
+            allCharacters[key].healthPoints = allCharacters[key].initialHealthPoints;
+            allCharacters[key].attackPower = allCharacters[key].counterAttackPower;
+        }
+
+        initializeGame();
+        updateHealth();
+        
+    });
 
     $(".card").on("click", function() {
 
@@ -102,30 +116,6 @@ $(document).ready(function(){
         updateHealth();
         hero.attackPower += hero.counterAttackPower;
 
-    });
-
-
-    $("#reset").on("click", function() {
-
-        if (chooseHero) return;
-
-        $("#arena").empty();
-        $("#instruction").html("Choose your character");
-        $("#fight-commentary-1, #fight-commentary-2").empty();
-
-        for (var key in allCharacters) {
-            $(key, + "#bull-pen").show();
-            allCharacters[key].healthPoints = allCharacters[key].initialHealthPoints;
-            allCharacters[key].attackPower = allCharacters[key].counterAttackPower;
-        }
-        updateHealth();
-        hero = null;
-        enemy = null;
-        heroKey = "";
-        enemyKey = "";
-        chooseHero = true;
-        chooseEnemy = true;
-        
     });
 
 
