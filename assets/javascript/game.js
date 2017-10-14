@@ -12,10 +12,10 @@ function Character(displayName, healthPoints, initialHealthPoints, attackPower, 
 
 
 var allCharacters = {
-    "obi-wan": new Character("Obi-Wan Kenobi", 120, 120, 8, 8),
-    "luke-sky": new Character("Luke Skywalker", 100, 100, 5, 5),
-    "darth-sid": new Character("Darth Sidious", 150, 150, 20, 20),
-    "darth-maul": new Character("Darth Maul", 180, 180, 25, 25)
+    ".obi-wan": new Character("Obi-Wan Kenobi", 120, 120, 8, 8),
+    ".luke-sky": new Character("Luke Skywalker", 100, 100, 5, 5),
+    ".darth-sid": new Character("Darth Sidious", 150, 150, 20, 20),
+    ".darth-maul": new Character("Darth Maul", 180, 180, 25, 25)
 }
 
 
@@ -28,7 +28,6 @@ $(document).ready(function(){
     var enemyKey;
     var chooseHero;
     var chooseEnemy;
-    var attackValid;
 
 
     function initializeGame() {
@@ -38,47 +37,44 @@ $(document).ready(function(){
         enemyKey = "";
         chooseHero = true;
         chooseEnemy = true;
-        attackValid = false;
         $("#instruction").html("Choose your character");
-
     }
+
 
     function updateHealth() {
         for (var key in allCharacters) {
-            $("#" + key + "-hp").html(allCharacters[key].healthPoints);
+            $(key + "-hp").html(allCharacters[key].healthPoints);
         }
     }
+
 
     $(".card").on("click", function() {
 
         if (!chooseHero && !chooseEnemy) return;
 
-        console.log(this);
-        console.log($(this));
-
         if (chooseHero) {
-            hero = allCharacters[this.id];
-            heroKey = this.id;
+            heroKey = "." + this.classList[1]; //classList = ["card", "obi-wan"]
+            hero = allCharacters[heroKey];
             chooseHero = false;
-            $(this).detach();
-            $("#arena").append($(this));
+            $("#arena").append($(this).clone());
+            $(this).hide();
             $("#instruction").html("Choose your first enemy");
         }
-        else if ((chooseEnemy) && (this.id !== heroKey)) {
-            enemy = allCharacters[this.id];
-            enemyKey = this.id;
+        else if ((chooseEnemy) && (this.classList[1] !== heroKey)) {
+            enemyKey = "." + this.classList[1];
+            enemy = allCharacters[enemyKey];
             chooseEnemy = false;
-            $(this).detach();
-            $("#arena").append($(this));
+            $("#arena").append($(this).clone());
+            $(this).hide();
             $("#instruction").html("Up next:");
-            attackValid = true;
             $("#fight-commentary-1").empty();
         }
     });
 
+
     $("#attack").on("click", function() {
 
-        if (!attackValid) {
+        if (chooseEnemy) {
             $("#fight-commentary-1").html("Enemy not ready");
             return;
         }
@@ -87,18 +83,16 @@ $(document).ready(function(){
         if (enemy.healthPoints < 1) {
             $("#fight-commentary-1").html("You have defeated " + enemy.displayName + ", choose your next enemy.");
             $("#fight-commentary-2").empty();
-            $("#" + enemyKey).detach();
+            $(enemyKey, + "#arena").hide();
             $("#instruction").html("Choose your character");
             chooseEnemy = true;
-            attackValid = false;
         }
         else {
             hero.healthPoints -= enemy.counterAttackPower;
             if (hero.healthPoints < 1) {
                 $("#fight-commentary-1").html("You lost to " + enemy.displayName + ", game over.");
                 $("#fight-commentary-2").empty();
-                $("#" + heroKey).detach();
-                attackValid = false;
+                $(heroKey, + "#arena").hide();
             }
             else {
                 $("#fight-commentary-1").html("You attacked " + enemy.displayName + " for " + hero.attackPower + " damage.");
@@ -110,13 +104,17 @@ $(document).ready(function(){
 
     });
 
+
     $("#reset").on("click", function() {
+
+        if (chooseHero) return;
+
+        $("#arena").empty();
+        $("#instruction").html("Choose your character");
+        $("#fight-commentary-1, #fight-commentary-2").empty();
+
         for (var key in allCharacters) {
-            var cardInPlay = $("#" + key);
-            cardInPlay.detach();
-            $("#bull-pen").append(cardInPlay);
-        }
-        for (var key in allCharacters) {
+            $(key, + "#bull-pen").show();
             allCharacters[key].healthPoints = allCharacters[key].initialHealthPoints;
             allCharacters[key].attackPower = allCharacters[key].counterAttackPower;
         }
@@ -127,15 +125,12 @@ $(document).ready(function(){
         enemyKey = "";
         chooseHero = true;
         chooseEnemy = true;
-        attackValid = false;
-        $("#instruction").html("Choose your character");
-        $("#fight-commentary-1, #fight-commentary-2").empty();
+        
     });
 
 
     initializeGame();
     updateHealth();
-
 
 
 });
