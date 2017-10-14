@@ -2,73 +2,69 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <title>Star Wars RPG</title>
 </head>
 <body>
 
-    <div class="container">
+    <header>
         <h1>Star Wars RPG</h1>
+    </header>
 
-        <div class="container">
-            <h2>The Arena</h2>
-            <button id="attack">Attack</button>
-            <button id="reset">Reset</button>
-            <h6 id="fight-commentary-1"></h6>
-            <h6 id="fight-commentary-2"></h6>
-            <div class="card-deck" id="arena">
+    <section class="container row">
+
+        <h2>The Arena</h2>
+        <button id="attack">Attack</button>
+        <button id="reset">Reset</button>
+        <h3 id="fight-commentary-1"></h3>
+        <h3 id="fight-commentary-2"></h3>
+        <div id="arena">
+
+        </div>
                 
+    </section>
+
+    <section class="container row">
+
+        <h2 id="instruction"></h2>
+
+        <div id="bull-pen">
+            <div class="card obi-wan">
+                <img src="assets/images/obi-wan-kenobi.png" alt="Obi-Wan Kenobi" style="width:100%">
+                <div class="card-footer">
+                    <h4>Obi-Wan Kenobi</h4>
+                    <p>Health Points: <span class="obi-wan-hp"></span></p>
+                </div>
+            </div>
+            <div class="card luke-sky">
+                <img src="assets/images/luke-skywalker.png" alt="Luke Skywalker" style="width:100%">
+                <div class="card-footer">
+                    <h4>Luke Skywalker</h4>
+                    <p>Health Points: <span class="luke-sky-hp"></span></p>
+                </div>
+            </div>
+
+            <div class="card darth-sid">
+                <img src="assets/images/darth-sidious.png" alt="Darth Sidious" style="width:100%">
+                <div class="card-footer">
+                    <h4>Darth Sidious</h4>
+                    <p>Health Points: <span class="darth-sid-hp"></span></p>
+                </div>
+            </div>
+            <div class="card darth-maul">
+                <img src="assets/images/darth-maul.png" alt="Darth Maul" style="width:100%">
+                <div class="card-footer">
+                    <h4>Darth Maul</h4>
+                    <p>Health Points: <span class="darth-maul-hp"></span></p>
+                </div>
             </div>
         </div>
 
-        <div class="container">
 
-            <h2 id="instruction"></h2>
-
-
-            <div class="card-deck" id="bull-pen">
-                <div class="card obi-wan">
-                    <img class="card-img-top" src="assets/images/obi-wan-kenobi.png" alt="Obi-Wan Kenobi">
-                    <div class="card-footer">
-                        <h6>Obi-Wan Kenobi</h6>
-                        <small>Health Points: <span class="obi-wan-hp"></span></small>
-                    </div>
-                </div>
-                <div class="card luke-sky">
-                    <img class="card-img-top" src="assets/images/luke-skywalker.png" alt="Luke Skywalker">
-                    <div class="card-footer">
-                        <h6>Luke Skywalker</h6>
-                        <small>Health Points: <span class="luke-sky-hp"></span></small>
-                    </div>
-                </div>
-
-                <div class="card darth-sid">
-                    <img class="card-img-top" src="assets/images/darth-sidious.png" alt="Darth Sidious">
-                    <div class="card-footer">
-                        <h6>Darth Sidious</h6>
-                        <small>Health Points: <span class="darth-sid-hp"></span></small>
-                    </div>
-                </div>
-                <div class="card darth-maul">
-                    <img class="card-img-top" src="assets/images/darth-maul.png" alt="Darth Maul">
-                    <div class="card-footer">
-                        <h6>Darth Maul</h6>
-                        <small>Health Points: <span class="darth-maul-hp"></span></small>
-                    </div>
-                </div>
-
-                <!-- Move the choice to the offender area -->
-            </div>
-        </div>
-
-    </div>
+    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="assets/javascript/game.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 
 </body>
 </html>
