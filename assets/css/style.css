@@ -1,13 +1,22 @@
 .card {
     float: left;
-    width: 15%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 200px;
+    box-shadow: 0 4px 8px 0 #9E935B;
     transition: 0.3s;
     border-radius: 5px;
+    background: #9EB5BE;
+    margin: 20px 15px;
 }
-
+/*
+tan-blue
+D1C68B
+9E935B
+9EB5BE
+B1A99A
+749696
+*/
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 8px 8px 16px 0 #9E935B;
 }
 
 img {
@@ -18,18 +27,38 @@ img {
     padding: 2px 16px;
 }
 
+.arena-format {
+    float: left;
+    width: 50%;
+}
+
 body {
     font-family: 'Georgia',Times,Times New Roman,serif;
     line-height: 140%;
+    background: #B1A99A;
 }
 
 h1, h2, h3, h4 {
     font-weight: bold;
 }
 
-.row {
-    height: 500px;
+h1 {
+    font-size: 36px;
+    text-align: center;
+    padding: 20px;
+}
 
+h2 {
+    font-size: 24px;
+    text-align: center;
+    padding-top: 7px;
+}
+
+.row {
+    height: 380px;
+    margin: 30px;
+    box-shadow: 10px -10px 20px #9E935B inset;
+    background: #D1C68B;
 }
 
 .row::after {
