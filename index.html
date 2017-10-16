@@ -14,11 +14,16 @@
     <section class="container row">
 
         <h2>The Arena</h2>
-        <div class="arena-format" id="arena">
-
+        <div id="arena">
+            <div class="card-holder col-1">
+                <h2>Hero</h2>
+            </div>
+            <div class="card-holder col-2">
+                <h2>Enemy</h2>
+            </div>
         </div>
-        <div class="arena-format">
-            <button id="confirm">Confirm Lineup</button>
+        <div class="col-3">
+            <!-- <button id="confirm">Confirm Lineup</button> -->
             <button id="attack">Attack</button>
             <button id="reset">Reset</button>
             <h3 id="fight-commentary-1"></h3>
@@ -32,14 +37,14 @@
         <h2 id="instruction"></h2>
 
         <div id="bull-pen">
-            <div class="card obi-wan">
+            <div class="card obi-wan col-1">
                 <img src="assets/images/obi-wan-kenobi.png" alt="Obi-Wan Kenobi" style="width:100%">
                 <div class="card-footer">
                     <h4>Obi-Wan Kenobi</h4>
                     <p>Health Points: <span class="obi-wan-hp"></span></p>
                 </div>
             </div>
-            <div class="card luke-sky">
+            <div class="card luke-sky col-2">
                 <img src="assets/images/luke-skywalker.png" alt="Luke Skywalker" style="width:100%">
                 <div class="card-footer">
                     <h4>Luke Skywalker</h4>
@@ -47,14 +52,14 @@
                 </div>
             </div>
 
-            <div class="card darth-sid">
+            <div class="card darth-sid col-3">
                 <img src="assets/images/darth-sidious.png" alt="Darth Sidious" style="width:100%">
                 <div class="card-footer">
                     <h4>Darth Sidious</h4>
                     <p>Health Points: <span class="darth-sid-hp"></span></p>
                 </div>
             </div>
-            <div class="card darth-maul">
+            <div class="card darth-maul col-4">
                 <img src="assets/images/darth-maul.png" alt="Darth Maul" style="width:100%">
                 <div class="card-footer">
                     <h4>Darth Maul</h4>

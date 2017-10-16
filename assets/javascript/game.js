@@ -29,8 +29,7 @@ $(document).ready(function(){
     var chooseHero;
     var chooseEnemy;
     var enemiesRemaining;
-    var detachedCharacters = [];
-    var detachedNames = [];
+
 
     function initializeGame() {
         hero = null;
@@ -40,7 +39,6 @@ $(document).ready(function(){
         chooseHero = true;
         chooseEnemy = true;
         enemiesRemaining = Object.keys(allCharacters).length - 1;
-        $('#arena').empty();
         $('#fight-commentary-1, #fight-commentary-2').empty();
         $('#instruction').html('Choose your character');
     }
@@ -51,12 +49,6 @@ $(document).ready(function(){
             $(key + '-hp').html(allCharacters[key].healthPoints);
         }
     }
-
-    $('#reset').on("click", function() {
-        location.reload(true);
-        initializeGame();
-        updateHealth();
-    });
 
 
     (function($) {
@@ -84,27 +76,31 @@ $(document).ready(function(){
         }
     })(jQuery);
 
-    $('.card').dragCard();
+
+    $('#reset').on("click", function() {
+        location.reload(true);
+        initializeGame();
+        updateHealth();
+    });
 
 
-    $('#confirm').on("click", function() {
+    $('#attack').on("click", function() {
 
         $('#fight-commentary-1, #fight-commentary-2').empty();
 
         var inBounds = [];
 
         for (var key in allCharacters) {
-            if (detachedNames.indexOf(key) === -1) {
-                var position = $(key).position();
-                if (position.top < $('#arena').position().top + $('#arena').outerHeight()) {
-                    inBounds.push(key);
-                }
+            var position = $(key).position();
+            if (position.top < $('#arena').position().top + $('#arena').outerHeight()) {
+                inBounds.push(key);
             }
         }
 
         if (inBounds.length !== 2) {
             $('#fight-commentary-1').html('Place exactly two players in the arena.');
             $('#fight-commentary-2').html('Rearrange your set up.');
+            return;
         }
         else {
             if (chooseHero && chooseEnemy) {
@@ -131,28 +127,23 @@ $(document).ready(function(){
                 if ($(enemyKey).position().left < $(heroKey).position().left) {
                     $('#fight-commentary-1').html('You must play the same character every round.');
                     $('#fight-commentary-2').html('Rearrange your set up.');
+                    return;
                 }
                 else {
                     chooseEnemy = false;
                     enemy = allCharacters[enemyKey];
+                    enemiesRemaining--;
+                    if (enemiesRemaining > 0) {
+                        $('#instruction').html('Up next:');
+                    }
+                    else {
+                        $('#instruction').empty();
+                    }
                 }
 
-            }
-            if (chooseEnemy === false) {
-                enemiesRemaining--;
-                if (enemiesRemaining > 0) {
-                    $('#instruction').html('Up next:');
-                }
-                else {
-                    $('#instruction').empty();
-                }
-            }
+            } 
         }
-    });
-
-
-    $('#attack').on("click", function() {
-
+        
         if (chooseHero) {
             $('#fight-commentary-1').html('You need to confirm your cards.');
             return;
@@ -164,8 +155,7 @@ $(document).ready(function(){
 
         enemy.healthPoints -= hero.attackPower; // Hero attacks first
         if (enemy.healthPoints < 1) {
-            detachedCharacters.push($(enemyKey).detach());
-            detachedNames.push(enemyKey);
+            $(enemyKey).detach();
             $('#fight-commentary-1').html('You have defeated ' + enemy.displayName + '.');
             if (enemiesRemaining > 0) {
                 chooseEnemy = true;
@@ -180,8 +170,7 @@ $(document).ready(function(){
         else { // If the enemy is not defeated, it gets to attack second
             hero.healthPoints -= enemy.counterAttackPower;
             if (hero.healthPoints < 1) {
-                detachedCharacters.push($(heroKey).detach());
-                detachedNames.push(heroKey);
+                $(heroKey).detach();
                 $('#fight-commentary-1').html('You lost to ' + enemy.displayName + '.');
                 $('#fight-commentary-2').html('Game over.');
             }
@@ -198,6 +187,7 @@ $(document).ready(function(){
 
     initializeGame();
     updateHealth();
+    $('.card').dragCard();
 
 
 });
