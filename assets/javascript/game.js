@@ -60,8 +60,8 @@ $(document).ready(function(){
             
             return $(this).css('cursor', event.cursor).on("mousedown", function(e) {
                 var $drag = $(this).addClass('draggable');
-                var    pos_y = $drag.offset().top + $drag.outerHeight() - e.pageY;
-                var    pos_x = $drag.offset().left + $drag.outerWidth() - e.pageX;
+                var pos_y = $drag.offset().top + $drag.outerHeight() - e.pageY;
+                var pos_x = $drag.offset().left + $drag.outerWidth() - e.pageX;
                 $drag.css('z-index', 1000).parents().on("mousemove", function(e) {
                     $('.draggable').offset({
                         top:e.pageY + pos_y - $drag.outerHeight(),
@@ -73,6 +73,28 @@ $(document).ready(function(){
                 e.preventDefault(); // so card moves only as a whole
             }).on("mouseup", function() {
                 $(this).removeClass('draggable');
+                if ((Math.abs($(this).position().top - $('#hero-box').position().top) < 50) &&
+                    (Math.abs($(this).position().left - $('#hero-box').position().left) < 50)) {
+                    $(this).offset($('#hero-box').offset());
+                    $(this).css('box-shadow', '0px 0px 20px #7A7246 inset');
+                    $(this).unbind('mouseenter mouseleave');
+                    // TODO: set hero key here
+                }
+                else if ((Math.abs($(this).position().top - $('#enemy-box').position().top) < 50) &&
+                    (Math.abs($(this).position().left - $('#enemy-box').position().left) < 50)) {
+                    $(this).offset($('#enemy-box').offset());
+                    $(this).css('box-shadow', '0px 0px 20px #7A7246 inset');
+                    $(this).unbind('mouseenter mouseleave');
+                    // TODO: set enemy key here
+                }
+                else {
+                    $(this).css('box-shadow', '0px 4px 8px #7A7246');
+                    $(this).hover(function(){
+                        $(this).css('box-shadow', '8px 8px 16px #9E935B');
+                        }, function(){
+                        $(this).css('box-shadow', '0px 4px 8px #7A7246');
+                    });
+                }
             });
 
         }
@@ -99,6 +121,7 @@ $(document).ready(function(){
                     (Math.abs(position.left - $('#hero-box').position().left) < 50)) {
                     heroKey = key;
                     hero = allCharacters[heroKey];
+                    $(key).offset($('#hero-box').offset());
                     chooseHero = false;
                     detachedCards.push(heroKey); // so won't be chosen for enemy
                     // TODO: make sure two cards aren't in same box
