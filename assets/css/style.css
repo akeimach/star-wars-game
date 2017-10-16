@@ -14,6 +14,10 @@ body {
     line-height: 140%;
     background: #E5DBBA;
     color: #212B2B;
+/*    display: -webkit-flex;
+    display: flex;  
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;*/
 }
 
 h1, h2, h3, h4 {
