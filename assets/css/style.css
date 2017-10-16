@@ -1,12 +1,4 @@
-.card {
-    float: left;
-    width: 200px;
-    box-shadow: 0 4px 8px 0 #9E935B;
-    transition: 0.3s;
-    border-radius: 5px;
-    background: #9EB5BE;
-    margin: 20px 15px;
-}
+
 /*
 tan-blue
 D1C68B
@@ -14,28 +6,14 @@ D1C68B
 9EB5BE
 B1A99A
 749696
+212B2B
 */
-.card:hover {
-    box-shadow: 8px 8px 16px 0 #9E935B;
-}
-
-img {
-    border-radius: 5px 5px 0 0;
-}
-
-.card-footer {
-    padding: 2px 16px;
-}
-
-.arena-format {
-    float: left;
-    width: 50%;
-}
 
 body {
     font-family: 'Georgia',Times,Times New Roman,serif;
     line-height: 140%;
-    background: #B1A99A;
+    background: #E5DBBA;
+    color: #212B2B;
 }
 
 h1, h2, h3, h4 {
@@ -54,15 +32,45 @@ h2 {
     padding-top: 7px;
 }
 
+h3 {
+    font-size: 18px;
+}
+
+h4, p {
+    font-size: 16px;
+}
+
 .row {
     height: 380px;
     margin: 30px;
-    box-shadow: 10px -10px 20px #9E935B inset;
     background: #D1C68B;
+    box-shadow: 0px 0px 20px #7A7246 inset;
 }
 
 .row::after {
     content: "";
     clear: both;
     display: table;
+}
+
+.arena-format {
+    float: left;
+    height: 340px;
+    width: 50%;
+}
+
+.card {
+    float: left;
+    width: 200px;
+    margin: 20px 15px;
+    background: #9EB5BE;
+    box-shadow: 0px 4px 8px #7A7246;
+}
+
+.card:hover {
+    box-shadow: 8px 8px 16px #9E935B;
+}
+
+.card-footer {
+    padding: 2px 16px;
 }
