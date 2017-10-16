@@ -92,27 +92,35 @@ $(document).ready(function(){
 
         $('#fight-commentary-1, #fight-commentary-2').empty();
 
-        for (var key in allCharacters) {
-            if (detachedCards.indexOf(key) === -1) { // if the character hasn't been detached
+        if (chooseHero) {
+            for (var key in allCharacters) {
                 var position = $(key).position();
-                if ((Math.abs(position.top - $('#hero-box').position().top) < 100) &&
-                    (Math.abs(position.left - $('#hero-box').position().left) < 100)) {
-                    if (chooseHero) {
-                        chooseHero = false;
-                        heroKey = key;
-                        hero = allCharacters[heroKey];
-                    }
-                    else {
-                        $('#fight-commentary-1').html('You cant change your hero.');
-                        $('#fight-commentary-2').html('Rearrange your set up.');
-                    }
+                if ((Math.abs(position.top - $('#hero-box').position().top) < 50) &&
+                    (Math.abs(position.left - $('#hero-box').position().left) < 50)) {
+                    heroKey = key;
+                    hero = allCharacters[heroKey];
+                    chooseHero = false;
+                    detachedCards.push(heroKey); // so won't be chosen for enemy
+                    // TODO: make sure two cards aren't in same box
                 }
-                if ((Math.abs(position.top - $('#enemy-box').position().top) < 100) &&
-                    (Math.abs(position.left - $('#enemy-box').position().left) < 100)) {
-                    if (chooseEnemy) {
-                        chooseEnemy = false;
+            }
+            if (chooseHero) {
+                $('#fight-commentary-1').html('You need to choose a hero.');
+                $('#fight-commentary-2').html('Rearrange your set up.');
+                return;
+            }
+        }
+
+        if (chooseEnemy) {
+            for (var key in allCharacters) {
+                if (detachedCards.indexOf(key) === -1) {
+                    var position = $(key).position();
+                    if ((Math.abs(position.top - $('#enemy-box').position().top) < 50) &&
+                        (Math.abs(position.left - $('#enemy-box').position().left) < 50)) {
                         enemyKey = key;
                         enemy = allCharacters[enemyKey];
+                        chooseEnemy = false;
+                        // TODO: make sure two cards aren't in same box
                         enemiesRemaining--;
                         if (enemiesRemaining > 0) {
                             $('#instruction').html('Up next:');
@@ -123,24 +131,21 @@ $(document).ready(function(){
                     }
                 }
             }
-        }
-        
-        if (chooseHero) {
-            $('#fight-commentary-1').html('You need to choose your cards.');
-            return;
-        }
-        else if (chooseEnemy) {
-            $('#fight-commentary-1').html('Enemy not ready.');
-            return;
+            if (chooseEnemy) {
+                // TODO: tell user they can't change their hero
+                $('#fight-commentary-1').html('You need to choose an enemy.');
+                $('#fight-commentary-2').html('Rearrange your set up.');
+                return;
+            }
         }
 
         enemy.healthPoints -= hero.attackPower; // Hero attacks first
         if (enemy.healthPoints < 1) {
             $(enemyKey).detach();
-            detachedCards.push(enemyKey);
             $('#fight-commentary-1').html('You have defeated ' + enemy.displayName + '.');
             if (enemiesRemaining > 0) {
                 chooseEnemy = true;
+                detachedCards.push(enemyKey);
                 $('#fight-commentary-2').html('Choose your next enemy.');
             }
             else {
@@ -154,7 +159,6 @@ $(document).ready(function(){
             hero.healthPoints -= enemy.counterAttackPower;
             if (hero.healthPoints < 1) {
                 $(heroKey).detach();
-                detachedCards.push(heroKey);
                 gameOver = true;
                 $('#fight-commentary-1').html('You lost to ' + enemy.displayName + '.');
                 $('#fight-commentary-2').html('Game over.');
