@@ -1,7 +1,5 @@
 
 
-
-
 function Character(displayName, healthPoints, initialHealthPoints, attackPower, counterAttackPower) {
     this.displayName = displayName;
     this.healthPoints = healthPoints;
@@ -41,8 +39,8 @@ $(document).ready(function(){
         chooseEnemy = true;
         enemiesRemaining = Object.keys(allCharacters).length - 1;
         gameOver = false;
-        $('#fight-commentary-1, #fight-commentary-2').empty();
-        $('#instruction').html('Choose your character');
+        $('#fight-commentary-1').html('Choose your characters by dragging from below.');
+        $('#fight-commentary-2').empty();
         for (var key in allCharacters) {
             addCardEffects(key);
         }
@@ -160,12 +158,6 @@ $(document).ready(function(){
                         chooseEnemy = false;
                         // TODO: make sure two cards aren't in same box
                         enemiesRemaining--;
-                        if (enemiesRemaining > 0) {
-                            $('#instruction').html('Up next:');
-                        }
-                        else {
-                            $('#instruction').empty();
-                        }
                     }
                 }
             }
@@ -179,7 +171,7 @@ $(document).ready(function(){
 
         enemy.healthPoints -= hero.attackPower; // Hero attacks first
         if (enemy.healthPoints < 1) {
-            $(enemyKey).detach();
+            $(enemyKey).css('visibility', 'hidden'); // Detaching them messed up the alignment
             $('#fight-commentary-1').html('You have defeated ' + enemy.displayName + '.');
             if (enemiesRemaining > 0) {
                 chooseEnemy = true;
@@ -189,14 +181,13 @@ $(document).ready(function(){
             else {
                 gameOver = true;
                 $('#fight-commentary-2').html('You won the game!');
-                $('#instruction').empty();
             }
 
         }
         else { // If the enemy is not defeated, it gets to attack second
             hero.healthPoints -= enemy.counterAttackPower;
             if (hero.healthPoints < 1) {
-                $(heroKey).detach();
+                $(heroKey).css('visibility', 'hidden'); // replace detach()
                 gameOver = true;
                 $('#fight-commentary-1').html('You lost to ' + enemy.displayName + '.');
                 $('#fight-commentary-2').html('Game over.');
