@@ -43,6 +43,9 @@ $(document).ready(function(){
         gameOver = false;
         $('#fight-commentary-1, #fight-commentary-2').empty();
         $('#instruction').html('Choose your character');
+        for (var key in allCharacters) {
+            addCardEffects(key);
+        }
     }
 
 
@@ -50,6 +53,32 @@ $(document).ready(function(){
         for (var key in allCharacters) {
             $(key + '-hp').html(allCharacters[key].healthPoints);
         }
+    }
+
+
+    function addCardEffects(thisCard) {
+        $(thisCard).css('box-shadow', '0px 4px 8px #7A7246');
+        $(thisCard).hover(function(){
+            $(thisCard).css('box-shadow', '8px 8px 16px #9E935B');
+            }, function(){
+            $(thisCard).css('box-shadow', '0px 4px 8px #7A7246');
+        });
+    }
+
+    function removeCardEffects(thisCard) {
+        $(thisCard).css('box-shadow', '0px 0px 20px #7A7246 inset');
+        $(thisCard).unbind('mouseenter mouseleave');
+    }
+
+
+    function checkCardLocation(thisCard, targetBox) {
+        var cardPos = $(thisCard).position();
+        var boxPos = $(targetBox).position();
+        if ((Math.abs(cardPos.top - boxPos.top) < 50) && // tolerance of 50 px
+            (Math.abs(cardPos.left - boxPos.left) < 50)) {
+            return true;
+        }
+        return false;
     }
 
 
@@ -73,27 +102,18 @@ $(document).ready(function(){
                 e.preventDefault(); // so card moves only as a whole
             }).on("mouseup", function() {
                 $(this).removeClass('draggable');
-                if ((Math.abs($(this).position().top - $('#hero-box').position().top) < 50) &&
-                    (Math.abs($(this).position().left - $('#hero-box').position().left) < 50)) {
+                if (checkCardLocation(this, '#hero-box')) {
                     $(this).offset($('#hero-box').offset());
-                    $(this).css('box-shadow', '0px 0px 20px #7A7246 inset');
-                    $(this).unbind('mouseenter mouseleave');
+                    removeCardEffects(this);
                     // TODO: set hero key here
                 }
-                else if ((Math.abs($(this).position().top - $('#enemy-box').position().top) < 50) &&
-                    (Math.abs($(this).position().left - $('#enemy-box').position().left) < 50)) {
+                else if (checkCardLocation(this, '#enemy-box')) {
                     $(this).offset($('#enemy-box').offset());
-                    $(this).css('box-shadow', '0px 0px 20px #7A7246 inset');
-                    $(this).unbind('mouseenter mouseleave');
+                    removeCardEffects(this);
                     // TODO: set enemy key here
                 }
                 else {
-                    $(this).css('box-shadow', '0px 4px 8px #7A7246');
-                    $(this).hover(function(){
-                        $(this).css('box-shadow', '8px 8px 16px #9E935B');
-                        }, function(){
-                        $(this).css('box-shadow', '0px 4px 8px #7A7246');
-                    });
+                    addCardEffects(this);
                 }
             });
 
@@ -116,12 +136,9 @@ $(document).ready(function(){
 
         if (chooseHero) {
             for (var key in allCharacters) {
-                var position = $(key).position();
-                if ((Math.abs(position.top - $('#hero-box').position().top) < 50) &&
-                    (Math.abs(position.left - $('#hero-box').position().left) < 50)) {
+                if (checkCardLocation(key, '#hero-box')) {
                     heroKey = key;
                     hero = allCharacters[heroKey];
-                    $(key).offset($('#hero-box').offset());
                     chooseHero = false;
                     detachedCards.push(heroKey); // so won't be chosen for enemy
                     // TODO: make sure two cards aren't in same box
@@ -137,9 +154,7 @@ $(document).ready(function(){
         if (chooseEnemy) {
             for (var key in allCharacters) {
                 if (detachedCards.indexOf(key) === -1) {
-                    var position = $(key).position();
-                    if ((Math.abs(position.top - $('#enemy-box').position().top) < 50) &&
-                        (Math.abs(position.left - $('#enemy-box').position().left) < 50)) {
+                    if (checkCardLocation(key, '#enemy-box')) {
                         enemyKey = key;
                         enemy = allCharacters[enemyKey];
                         chooseEnemy = false;

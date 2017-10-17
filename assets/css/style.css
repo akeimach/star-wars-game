@@ -9,15 +9,18 @@ B1A99A
 212B2B
 */
 
+/** {outline : 1px solid red; }*/
+
 body {
     font-family: 'Georgia',Times,Times New Roman,serif;
     line-height: 140%;
     background: #E5DBBA;
     color: #212B2B;
-/*    display: -webkit-flex;
-    display: flex;  
-    -webkit-flex-flow: row wrap;
-    flex-flow: row wrap;*/
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
 h1, h2, h3, h4 {
@@ -44,17 +47,32 @@ h4, p {
     font-size: 16px;
 }
 
+button {
+    font-family: 'Georgia',Times,Times New Roman,serif;
+    background: #9EB5BE;
+    border: none;
+    width: 100px;
+    padding: 5px;
+    margin: 5px;
+    margin-top: 40px;
+    font-size: 18px;
+    box-shadow: 0px 2px 4px #7A7246;
+}
+
+button:hover {
+    box-shadow: 2px 4px 8px #9E935B;
+}
+
 .row {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    border-radius: 5px;
+    width: 90%;
     height: 380px;
     margin: 30px;
     background: #D1C68B;
     box-shadow: 0px 0px 20px #7A7246 inset;
-}
-
-.row::after {
-    content: "";
-    clear: both;
-    display: table;
 }
 
 .col-1 {
@@ -77,6 +95,13 @@ h4, p {
     left: 50%;
 }
 
+.col-3-50 {
+    position: absolute;
+    height: 340px;
+    width: 50%;
+    left: 50%;
+}
+
 .col-4 {
     position: absolute;
     height: 340px;
@@ -85,6 +110,7 @@ h4, p {
 }
 
 .card {
+    border-radius: 5px;
     position: absolute;
     width: 200px;
     height: 320px;
@@ -95,14 +121,11 @@ h4, p {
 
 .card-holder {
     position: absolute;
+    border-radius: 5px;
     width: 200px;
     height: 320px;
     margin: 20px 15px;
     box-shadow: 0px 0px 20px #7A7246 inset;
-}
-
-.card:hover {
-    box-shadow: 8px 8px 16px #9E935B;
 }
 
 .card-footer {
