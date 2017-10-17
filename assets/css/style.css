@@ -1,20 +1,18 @@
 
-/*
-tan-blue
-D1C68B
-9E935B
-9EB5BE
-B1A99A
-749696
-212B2B
-*/
-
 /** {outline : 1px solid red; }*/
+/*
+Header text #A69686
+Rows (same as header) rgba(166, 150, 134, 0.7) for opacity
+Other text #212B2B
+Shadows #4F4740
+Blue panels #6085AC
+*/
 
 body {
     font-family: 'Georgia',Times,Times New Roman,serif;
     line-height: 140%;
-    background: #E5DBBA;
+    background: url("../images/death-star.jpg") no-repeat center center fixed;
+    background-size: cover;
     color: #212B2B;
     display: flex;
     flex-flow: row wrap;
@@ -31,6 +29,7 @@ h1 {
     font-size: 36px;
     text-align: center;
     padding: 20px;
+    color: #A69686;
 }
 
 h2 {
@@ -49,18 +48,19 @@ h4, p {
 
 button {
     font-family: 'Georgia',Times,Times New Roman,serif;
-    background: #9EB5BE;
+    color: #212B2B;
+    background: #6085AC;
     border: none;
     width: 100px;
     padding: 5px;
     margin: 5px;
     margin-top: 40px;
     font-size: 18px;
-    box-shadow: 0px 2px 4px #7A7246;
+    box-shadow: 0px 2px 4px #4F4740;
 }
 
 button:hover {
-    box-shadow: 2px 4px 8px #9E935B;
+    box-shadow: 2px 4px 8px #4F4740;
 }
 
 .row {
@@ -71,8 +71,9 @@ button:hover {
     width: 90%;
     height: 380px;
     margin: 30px;
-    background: #D1C68B;
-    box-shadow: 0px 0px 20px #7A7246 inset;
+    margin-top: 15px;
+    background: rgba(166, 150, 134, 0.7);
+    box-shadow: 0px 0px 20px #4F4740 inset;
 }
 
 .col-1 {
@@ -115,8 +116,8 @@ button:hover {
     width: 200px;
     height: 320px;
     margin: 20px 15px;
-    background: #9EB5BE;
-    box-shadow: 0px 4px 8px #7A7246;
+    background: #6085AC;
+    box-shadow: 0px 4px 8px #4F4740;
 }
 
 .card-holder {
@@ -125,7 +126,8 @@ button:hover {
     width: 200px;
     height: 320px;
     margin: 20px 15px;
-    box-shadow: 0px 0px 20px #7A7246 inset;
+    background: rgba(166, 150, 134, 0.6);
+    box-shadow: 0px 0px 20px #4F4740 inset;
 }
 
 .card-footer {

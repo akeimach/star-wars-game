@@ -57,16 +57,16 @@ $(document).ready(function(){
 
 
     function addCardEffects(thisCard) {
-        $(thisCard).css('box-shadow', '0px 4px 8px #7A7246');
+        $(thisCard).css('box-shadow', '0px 4px 8px #4F4740');
         $(thisCard).hover(function(){
-            $(thisCard).css('box-shadow', '8px 8px 16px #9E935B');
+            $(thisCard).css('box-shadow', '8px 8px 16px #4F4740');
             }, function(){
-            $(thisCard).css('box-shadow', '0px 4px 8px #7A7246');
+            $(thisCard).css('box-shadow', '0px 4px 8px #4F4740');
         });
     }
 
     function removeCardEffects(thisCard) {
-        $(thisCard).css('box-shadow', '0px 0px 20px #7A7246 inset');
+        $(thisCard).css('box-shadow', '0px 0px 20px #4F4740 inset');
         $(thisCard).unbind('mouseenter mouseleave');
     }
 
